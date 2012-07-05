@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pretty-config xmlns="http://ocpsoft.com/prettyfaces/3.3.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ocpsoft.com/prettyfaces/3.3.0 http://ocpsoft.com/xml/ns/prettyfaces/ocpsoft-pretty-faces-3.3.0.xsd">
+
+	<url-mapping id="root">
+		<pattern value="/" />
+		<view-id value="/home.xhtml" />
+	</url-mapping>
+
+<!-- 	<url-mapping id="eventHome"> -->
+<!-- 		<pattern value="/event/#{pageSection}/#{eventId}" /> -->
+<!-- 		<view-id value="/homes/event/eventHome.xhtml" /> -->
+<!-- 	</url-mapping> -->
+
+
+<!-- 	<url-mapping id="createEvent"> -->
+<!-- 		<pattern value="/createEvent/#{cid}" /> -->
+<!-- 		<view-id value="/createEvent.xhtml" /> -->
+<!-- 	</url-mapping> -->
+
+
+</pretty-config>

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+	version="2.0">
+
+	<name>sportivity</name>
+
+	<!-- <page view-id="/success.xhtml"> <navigation evaluate="#{openIdManager.processOpenId()}"> 
+		<rule if-outcome="register"> <redirect view-id="/registerOpenId.xhtml" /> 
+		</rule> <rule if-outcome="success"> <redirect view-id="/home.xhtml" /> </rule> 
+		<rule if-outcome="failure"> <redirect view-id="/error.xhtml" > <message severity="error">Error 
+		getting user info from OpenId provider</message> </redirect> </rule> </navigation> 
+		</page> -->
+
+	<!-- Navigation rules related to league creation conversation -->
+	<navigation-rule>
+		<from-view-id>/createLeague/createLeagueGeneralPreferences.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/home.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>teamsSetup</from-outcome>
+			<to-view-id>/createLeague/createLeagueTeamsSetup.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/createLeague/createLeagueTeamsSetup.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/home.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>generalPreferences</from-outcome>
+			<to-view-id>/createLeague/createLeagueGeneralPreferences.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>teamsSetup</from-outcome>
+			<to-view-id>/createLeague/createLeagueTeamsSetup.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>stageSetup</from-outcome>
+			<to-view-id>/createLeague/createLeagueStageSetup.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/createLeague/createLeagueStageSetup.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/home.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>finish</from-outcome>
+			<to-view-id>/homes/leagueHome/leagueHome.xhtml</to-view-id>
+			<redirect>
+				<view-param>
+					<name>leagueId</name>
+					<value>#{createLeague.leagueSetupPage.league.id}</value>
+				</view-param>
+				<view-param>
+					<name>pageSection</name>
+					<value>leagueInfo</value>
+				</view-param>
+			</redirect>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>teamsSetup</from-outcome>
+			<to-view-id>/createLeague/createLeagueTeamsSetup.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>stageSetup</from-outcome>
+			<to-view-id>/createLeague/createLeagueStageSetup.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/createEvent.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/home.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>eventHome</from-outcome>
+			<to-view-id>/homes/event/eventHome.xhtml</to-view-id>
+			<redirect>
+				<view-param>
+					<name>eventId</name>
+					<value>#{createEvent.createdEvent.id}</value>
+				</view-param>
+                <view-param>
+                  <name>pageSection</name>
+                  <value>eventInfo</value>
+                </view-param>
+			</redirect>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/createOrganization.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/home.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>organizationHome</from-outcome>
+			<to-view-id>/homes/organizationHome.xhtml</to-view-id>
+			<redirect>
+				<view-param>
+					<name>organizationId</name>
+					<value>#{createOrganization.organization.id}</value>
+				</view-param>
+                <view-param>
+                  <name>pageSection</name>
+                  <value>leagueInfo</value>
+                </view-param>        
+			</redirect>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/createTeam/createTeam.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>teamHome</from-outcome>
+			<to-view-id>/homes/teamHome/teamHome.xhtml</to-view-id>
+			<redirect>
+				<view-param>
+					<name>teamId</name>
+					<value>#{createTeam.team.id}</value>
+				</view-param>
+                <view-param>
+                  <name>pageSection</name>
+                  <value>teamInfo</value>
+                </view-param>
+			</redirect>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/home.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>createTeamPage</from-outcome>
+			<to-view-id>/createTeam/createTeam.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/requests/requests.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>createTeamAndJoinLeague</from-outcome>
+			<to-view-id>/createTeam/createTeam.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>           
+	</navigation-rule>
+
+
+	<navigation-rule>
+		<from-view-id>/login.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{identity.login}</from-action>
+			<if>#{identity.loggedIn}</if>
+			<to-view-id>/home.xhtml</to-view-id>
+			<redirect>
+				<view-param>
+					<name>pageSection</name>
+					<value>wall</value>
+				</view-param>
+			</redirect>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{identity.login}</from-action>
+			<from-outcome>failed</from-outcome>
+			<to-view-id>/login.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{identity.login}</from-action>
+			<from-outcome>exception</from-outcome>
+			<to-view-id>/login.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<application>
+		<resource-bundle>
+			<base-name>messages</base-name>
+			<var>messages</var>
+		</resource-bundle>
+	</application>
+</faces-config>
