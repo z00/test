@@ -298,28 +298,28 @@
 
 		<!-- Drools only for required dependency from RuleBasedPermissionResolver 
 			in seam security -->
-		<dependency>
-			<groupId>org.drools</groupId>
-			<artifactId>drools-compiler</artifactId>
-			<version>5.1.1</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>mvel2</artifactId>
-					<groupId>org.mvel</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>antlr-runtime</artifactId>
-					<groupId>org.antlr</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>ecj</artifactId>
-					<groupId>org.eclipse.jdt.core.compiler</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.drools</groupId> -->
+<!-- 			<artifactId>drools-compiler</artifactId> -->
+<!-- 			<version>5.1.1</version> -->
+<!-- 			<exclusions> -->
+<!-- 				<exclusion> -->
+<!-- 					<artifactId>mvel2</artifactId> -->
+<!-- 					<groupId>org.mvel</groupId> -->
+<!-- 				</exclusion> -->
+<!-- 				<exclusion> -->
+<!-- 					<artifactId>antlr-runtime</artifactId> -->
+<!-- 					<groupId>org.antlr</groupId> -->
+<!-- 				</exclusion> -->
+<!-- 				<exclusion> -->
+<!-- 					<artifactId>ecj</artifactId> -->
+<!-- 					<groupId>org.eclipse.jdt.core.compiler</groupId> -->
+<!-- 				</exclusion> -->
+<!-- 			</exclusions> -->
+<!-- 		</dependency> -->
 	</dependencies>
 	<build>
-		<finalName>test.war</finalName>
+		<!-- <finalName>test.war</finalName> -->
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -358,7 +358,7 @@
 				<configuration>
 					<tomeeVersion>1.1.0-SNAPSHOT</tomeeVersion> <!-- 1.0.0 -->
 					<removeDefaultWebapps>true</removeDefaultWebapps>
-					<skipCurrentProject>true</skipCurrentProject>
+					<skipCurrentProject>false</skipCurrentProject>
 					<args>-Xms512m -Xmx512m -XX:MaxPermSize=256m -XX:+UseParallelGC</args>
 					<libs>
 						<lib>org.hibernate:hibernate-entitymanager:${hibernate.core.version}</lib>
