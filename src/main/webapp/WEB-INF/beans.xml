@@ -6,7 +6,5 @@
 		<class>org.jboss.seam.transaction.TransactionInterceptor</class>
 		<class>org.jboss.seam.security.SecurityInterceptor</class>
 	</interceptors>
-	<alternatives>
-		<class>com.test.SecurityDroolsAlternative</class>
-	</alternatives>
+
 </beans>
