@@ -1,4 +1,4 @@
-package come.test;
+package com.sporting;
 
 import java.io.Serializable;
 

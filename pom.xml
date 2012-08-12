@@ -1,21 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>test</groupId>
-	<artifactId>test</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<groupId>com.sportivity</groupId>
+	<artifactId>sportivity</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>Java EE 6 test project</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.build.timestamp.format>yyyyMMdd'T'HHmmss</maven.build.timestamp.format>
-		<hibernate.core.version>4.1.4.Final</hibernate.core.version>
+		<hibernate.core.version>4.1.5.Final</hibernate.core.version>
 		<seam.version>3.1.0.Final</seam.version>
 		<freemarker.version>2.3.19</freemarker.version>
+		<surefire.plugin.version>2.12</surefire.plugin.version>
 	</properties>
-
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.jboss.arquillian</groupId>
+				<artifactId>arquillian-bom</artifactId>
+				<version>1.0.2.Final</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.myfaces.core</groupId>
@@ -44,7 +52,7 @@
 		<dependency>
 			<groupId>org.apache.openejb</groupId>
 			<artifactId>javaee-api</artifactId>
-			<version>6.0-3</version>
+			<version>6.0-4</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -191,7 +199,7 @@
 		<dependency>
 			<groupId>org.scribe</groupId>
 			<artifactId>scribe</artifactId>
-			<version>1.3.0</version>
+			<version>1.3.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.ocpsoft</groupId>
@@ -202,7 +210,7 @@
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
-			<version>3.2</version>
+			<version>3.3.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.primefaces.themes</groupId>
@@ -218,17 +226,11 @@
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.2.2</version>
-			<!-- <scope>provided</scope> -->
 		</dependency>
-		<!-- <dependency> -->
-		<!-- <groupId>com.google.guava</groupId> -->
-		<!-- <artifactId>guava</artifactId> -->
-		<!-- <version>12.0</version> -->
-		<!-- </dependency> -->
 		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>2.6</version>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.1</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -267,59 +269,61 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.jboss.arquillian.junit</groupId>
+			<artifactId>arquillian-junit-container</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.jboss.shrinkwrap.resolver</groupId>
 			<artifactId>shrinkwrap-resolver-impl-maven</artifactId>
 			<scope>test</scope>
-			<version>1.0.0-beta-5</version>
+			<!-- <version>1.0.0-beta-5</version> -->
 			<exclusions>
-				<exclusion>
-					<groupId>com.google.collections</groupId>
-					<artifactId>google-collections</artifactId>
-				</exclusion>
+				<!-- <exclusion> -->
+				<!-- <groupId>com.google.collections</groupId> -->
+				<!-- <artifactId>google-collections</artifactId> -->
+				<!-- </exclusion> -->
 				<exclusion>
 					<artifactId>log4j</artifactId>
 					<groupId>log4j</groupId>
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<dependency>
-			<groupId>org.jboss.arquillian.ajocado</groupId>
-			<artifactId>arquillian-ajocado-testng</artifactId>
-			<version>1.0.0.CR2</version>
-			<type>pom</type>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<artifactId>commons-collections</artifactId>
-					<groupId>commons-collections</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+		<!-- Drools only for required dependency from RuleBasedPermissionResolver in seam security, mock package org.drools in src -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.drools</groupId> -->
+		<!-- <artifactId>drools-compiler</artifactId> -->
+		<!-- <version>5.1.1</version> -->
+		<!-- <exclusions> -->
+		<!-- <exclusion> -->
+		<!-- <artifactId>mvel2</artifactId> -->
+		<!-- <groupId>org.mvel</groupId> -->
+		<!-- </exclusion> -->
+		<!-- <exclusion> -->
+		<!-- <artifactId>antlr-runtime</artifactId> -->
+		<!-- <groupId>org.antlr</groupId> -->
+		<!-- </exclusion> -->
+		<!-- <exclusion> -->
+		<!-- <artifactId>ecj</artifactId> -->
+		<!-- <groupId>org.eclipse.jdt.core.compiler</groupId> -->
+		<!-- </exclusion> -->
+		<!-- </exclusions> -->
+		<!-- </dependency> -->
 
-		<!-- Drools only for required dependency from RuleBasedPermissionResolver 
-			in seam security -->
+		<!-- PDF Excel Library -->
 		<dependency>
-			<groupId>org.drools</groupId>
-			<artifactId>drools-compiler</artifactId>
-			<version>5.1.1</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>mvel2</artifactId>
-					<groupId>org.mvel</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>antlr-runtime</artifactId>
-					<groupId>org.antlr</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>ecj</artifactId>
-					<groupId>org.eclipse.jdt.core.compiler</groupId>
-				</exclusion>
-			</exclusions>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.7</version>
+		</dependency>
+		<dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>2.1.7</version>
 		</dependency>
 	</dependencies>
 	<build>
-		<!-- <finalName>test.war</finalName> -->
+		<finalName>ROOT</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -350,16 +354,44 @@
 			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
 				<version>2.4.1</version>
+				<configuration>
+					<!-- <filesets> -->
+					<!-- <fileset> -->
+					<!-- <directory>${war.deploy.path}</directory> -->
+					<!-- </fileset> -->
+					<!-- <fileset> -->
+					<!-- <directory>${JBOSS_HOME}/bin/sportivityindexes</directory> -->
+					<!-- </fileset> -->
+					<!-- </filesets> -->
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.openejb.maven</groupId>
 				<artifactId>tomee-maven-plugin</artifactId>
 				<version>1.0.0-SNAPSHOT</version> <!-- 1.0.0-SNAPSHOT for snapshot -->
+				<!-- <executions> -->
+				<!-- <execution> -->
+				<!-- <id>start</id> -->
+				<!-- <phase>pre-integration-test</phase> -->
+				<!-- <goals> -->
+				<!-- <goal>start</goal> -->
+				<!-- </goals> -->
+				<!-- </execution> -->
+				<!-- <execution> -->
+				<!-- <id>stop</id> -->
+				<!-- <phase>post-integration-test</phase> -->
+				<!-- <goals> -->
+				<!-- <goal>stop</goal> -->
+				<!-- </goals> -->
+				<!-- </execution> -->
+				<!-- </executions> -->
 				<configuration>
 					<tomeeVersion>1.1.0-SNAPSHOT</tomeeVersion> <!-- 1.0.0 -->
 					<removeDefaultWebapps>true</removeDefaultWebapps>
-					<skipCurrentProject>false</skipCurrentProject>
+					<skipCurrentProject>true</skipCurrentProject>
 					<args>-Xms512m -Xmx512m -XX:MaxPermSize=256m -XX:+UseParallelGC</args>
+					<tomeeHttpPort>8080</tomeeHttpPort>
+					<tomeeShutdownPort>5678</tomeeShutdownPort>
 					<libs>
 						<lib>org.hibernate:hibernate-entitymanager:${hibernate.core.version}</lib>
 						<lib>org.hibernate:hibernate-core:${hibernate.core.version}</lib>
@@ -370,7 +402,8 @@
 						<lib>org.hibernate.common:hibernate-commons-annotations:4.0.1.Final</lib>
 						<lib>org.hibernate:hibernate-validator:4.2.0.Final</lib>
 						<lib>postgresql:postgresql:9.1-901.jdbc4</lib>
-						<lib>org.infinispan:infinispan-core:5.1.4.FINAL</lib>
+						<!-- <lib>com.h2database:h2:1.3.168</lib> -->
+						<lib>org.infinispan:infinispan-core:5.1.5.FINAL</lib>
 						<lib>org.hibernate:hibernate-infinispan:${hibernate.core.version}</lib>
 						<lib>org.jgroups:jgroups:3.0.9.Final</lib>
 						<lib>org.jboss.marshalling:jboss-marshalling-river:1.3.11.GA:</lib>
@@ -386,9 +419,11 @@
 						<lib>remove:asm</lib>
 						<lib>remove:bval</lib>
 						<lib>remove:serp</lib>
-						<!-- <lib>remove:commons-lang-2.6.jar</lib> -->
+						<lib>remove:commons-lang-2.6.jar</lib>
+						<lib>remove:commons-dbcp</lib>
+						<lib>remove:commons-pool</lib>
+						<lib>remove:tomcat-i18n</lib>
 					</libs>
-
 				</configuration>
 			</plugin>
 			<plugin>
@@ -412,6 +447,11 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>2.0</version>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -434,13 +474,101 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-surefire-plugin</artifactId>
+						<version>${surefire.plugin.version}</version>
+						<configuration>
+							<skip>true</skip>
+						</configuration>
+						<!-- <executions> -->
+						<!-- <execution> -->
+						<!-- <id>surefire-it</id> -->
+						<!-- <phase>integration-test</phase> -->
+						<!-- <goals> -->
+						<!-- <goal>test</goal> -->
+						<!-- </goals> -->
+						<!-- <configuration> -->
+						<!-- <skip>false</skip> -->
+						<!-- </configuration> -->
+						<!-- </execution> -->
+						<!-- </executions> -->
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>tomee</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>${surefire.plugin.version}</version>
+						<configuration>
+							<systemPropertyVariables>
+							</systemPropertyVariables>
+							<skip>false</skip>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+			<dependencies>
+				<dependency>
+					<groupId>org.apache.openejb</groupId>
+					<artifactId>arquillian-tomee-remote</artifactId>
+					<version>1.1.0-SNAPSHOT</version>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>as7ui</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<version>2.1.1</version>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
 						<version>2.10</version>
 						<configuration>
 							<skip>true</skip>
 						</configuration>
 					</plugin>
+					<plugin>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<version>2.10</version>
+						<configuration>
+							<groups>uitest</groups>
+							<systemPropertyVariables>
+								<JBOSS_HOME>${env.JBOSS_HOME}</JBOSS_HOME>
+							</systemPropertyVariables>
+						</configuration>
+						<executions>
+							<execution>
+								<goals>
+									<goal>integration-test</goal>
+									<goal>verify</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
 				</plugins>
 			</build>
+			<dependencies>
+				<dependency>
+					<groupId>org.jboss.as</groupId>
+					<artifactId>jboss-as-arquillian-container-managed</artifactId>
+					<version>${jboss.version}</version>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
 		</profile>
 	</profiles>
 
@@ -471,7 +599,7 @@
 				<enabled>true</enabled>
 			</releases>
 			<snapshots>
-				<enabled>false</enabled>
+				<enabled>true</enabled>
 			</snapshots>
 			<id>apache-maven-snapshots</id>
 			<url>https://repository.apache.org/content/groups/public</url>
@@ -489,7 +617,7 @@
 	<pluginRepositories>
 		<pluginRepository>
 			<releases>
-				<enabled>false</enabled>
+				<enabled>true</enabled>
 			</releases>
 			<snapshots>
 				<enabled>true</enabled>

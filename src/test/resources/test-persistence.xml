@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0">
+	<persistence-unit name="sportivity-PU" transaction-type="JTA">
+		<description>Sportivity Persistence Unit</description>
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>My DataSource</jta-data-source>
+		<exclude-unlisted-classes>false</exclude-unlisted-classes>
+		<properties>
+			<property name="hibernate.hbm2ddl.auto" value="create-drop" /> <!-- create-drop -->
+			<property name="hibernate.jdbc.batch_size" value="0" />
+			<property name="hibernate.cache.use_query_cache" value="false" />
+			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.id.new_generator_mappings" value="true" />
+			<property name="hibernate.generate_statistics" value="false" />
+			<!-- <property name="hibernate.transaction.flush_before_completion" value="true"/> -->
+			<property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
+			
+			<!-- use a file system based index in prod
+			<property name="hibernate.search.default.directory_provider" value="org.hibernate.search.store.impl.FSDirectoryProvider" />
+			<property name="hibernate.search.default.indexBase" value="./sportivityindexes" /> -->
+			<property name="hibernate.search.default.directory_provider" value="ram" />
+						
+			<property name="hibernate.search.lucene_version" value="LUCENE_34" />
+			<property name="hibernate.search.default.exclusive_index_use" value="true" />
+			<property name="hibernate.search.analyzer" value="org.apache.lucene.analysis.standard.StandardAnalyzer"/>
+			<property name="hibernate.search.worker.execution" value="async"/>
+			<property name="hibernate.search.worker.thread_pool.size" value="1"/>
+			<property name="hibernate.search.worker.buffer_queue.max" value="100"/>
+		</properties>
+	</persistence-unit>
+</persistence>
+
