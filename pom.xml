@@ -13,17 +13,6 @@
 		<freemarker.version>2.3.19</freemarker.version>
 		<surefire.plugin.version>2.12</surefire.plugin.version>
 	</properties>
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.jboss.arquillian</groupId>
-				<artifactId>arquillian-bom</artifactId>
-				<version>1.0.2.Final</version>
-				<scope>import</scope>
-				<type>pom</type>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.myfaces.core</groupId>
@@ -271,11 +260,13 @@
 		<dependency>
 			<groupId>org.jboss.arquillian.junit</groupId>
 			<artifactId>arquillian-junit-container</artifactId>
+			<version>1.0.2.Final</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.jboss.shrinkwrap.resolver</groupId>
 			<artifactId>shrinkwrap-resolver-impl-maven</artifactId>
+			<version>2.0.0-alpha-1</version>
 			<scope>test</scope>
 			<!-- <version>1.0.0-beta-5</version> -->
 			<exclusions>
@@ -286,6 +277,10 @@
 				<exclusion>
 					<artifactId>log4j</artifactId>
 					<groupId>log4j</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>shrinkwrap-api</artifactId>
+					<groupId>org.jboss.shrinkwrap</groupId>
 				</exclusion>
 			</exclusions>
 		</dependency>

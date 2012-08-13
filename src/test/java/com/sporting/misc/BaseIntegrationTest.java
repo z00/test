@@ -30,9 +30,8 @@ public class BaseIntegrationTest {
 				.addAsWebInfResource(new File("src/main/webapp/WEB-INF/beans.xml"), "beans.xml")
 				.addAsWebInfResource(new File("src/main/webapp/WEB-INF/faces-config.xml"), "faces-config.xml")
 				.addAsLibraries(
-						DependencyResolvers.use(MavenDependencyResolver.class).goOffline()
-								.includeDependenciesFromPom("pom.xml")
-								.artifact("org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-impl-maven:1.0.0-beta-7")
+						DependencyResolvers.use(MavenDependencyResolver.class).goOffline().loadEffectivePom("pom.xml")
+								.artifact("org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-impl-maven:2.0.0-alpha-1")
 								.resolveAs(JavaArchive.class, new ScopeFilter("compile", "runtime", "test")));
 
 		// .exclusions("com.google.guava:guava:jar:r07",

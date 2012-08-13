@@ -14,9 +14,6 @@ import org.jboss.solder.logging.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.sporting.DBEnum;
-import com.sporting.Property;
-
 @RunWith(Arquillian.class)
 public class EverythingTest {
 
@@ -42,12 +39,13 @@ public class EverythingTest {
 		// credentials.setUsername("member0@sportivity.com");
 		// ident.login();
 		if (!ident.isLoggedIn()) {
-			Property p = new Property(DBEnum.TEST, "long weekend testing2");
-			em.persist(p);
-			Property property = Property.getProperty(DBEnum.TOMEE, em);
-			if (property != null) {
-				logger.info("found prop: " + property.getValue());
-			}
+			logger.info("EM is open: " + em.isOpen());
+			// Property p = new Property(DBEnum.TEST, "long weekend testing2");
+			// em.persist(p);
+			// Property property = Property.getProperty(DBEnum.TOMEE, em);
+			// if (property != null) {
+			// logger.info("found prop: " + property.getValue());
+			// }
 		}
 	}
 
