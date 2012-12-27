@@ -16,13 +16,12 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.build.timestamp.format>yyyyMMdd'T'HHmmss</maven.build.timestamp.format>
-		<hibernate.core.version>4.1.5.Final</hibernate.core.version>
+		<hibernate.core.version>4.1.8.Final</hibernate.core.version>
+		<hibernate.validator.version>4.3.1.Final</hibernate.validator.version>
 		<seam.version>3.1.0.Final</seam.version>
 		<freemarker.version>2.3.19</freemarker.version>
-		<surefire.plugin.version>2.12</surefire.plugin.version>
-		<version.shrinkwrap.descriptor>2.0.0-alpha-3</version.shrinkwrap.descriptor>
-		<version.shrinkwrap.shrinkwrap>1.0.1</version.shrinkwrap.shrinkwrap>
-		<tomee.version>1.5.1-SNAPSHOT</tomee.version>
+		<surefire.plugin.version>2.12.4</surefire.plugin.version>
+		<tomee.version>1.5.1</tomee.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -128,12 +127,12 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.6.6</version>
-			<scope>provided</scope>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.slf4j</groupId> -->
+<!-- 			<artifactId>slf4j-api</artifactId> -->
+<!-- 			<version>1.6.6</version> -->
+<!-- 			<scope>provided</scope> -->
+<!-- 		</dependency> -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
@@ -452,27 +451,12 @@
 			<plugin>
 				<groupId>org.apache.openejb.maven</groupId>
 				<artifactId>tomee-maven-plugin</artifactId>
-				<version>1.0.1-SNAPSHOT</version> <!-- 1.0.0-SNAPSHOT for snapshot -->
-				<!-- <executions> -->
-				<!-- <execution> -->
-				<!-- <id>start</id> -->
-				<!-- <phase>pre-integration-test</phase> -->
-				<!-- <goals> -->
-				<!-- <goal>start</goal> -->
-				<!-- </goals> -->
-				<!-- </execution> -->
-				<!-- <execution> -->
-				<!-- <id>stop</id> -->
-				<!-- <phase>post-integration-test</phase> -->
-				<!-- <goals> -->
-				<!-- <goal>stop</goal> -->
-				<!-- </goals> -->
-				<!-- </execution> -->
-				<!-- </executions> -->
+				<version>1.0.1</version> <!-- 1.0.0-SNAPSHOT for snapshot -->
 				<configuration>
 					<tomeeVersion>${tomee.version}</tomeeVersion> <!-- 1.0.0 -->
 					<removeDefaultWebapps>true</removeDefaultWebapps>
 					<skipCurrentProject>true</skipCurrentProject>
+					<keepServerXmlAsthis>true</keepServerXmlAsthis>
 					<args>-Xms512m -Xmx512m -XX:MaxPermSize=256m -XX:+UseParallelGC</args>
 					<tomeeHttpPort>8080</tomeeHttpPort>
 					<tomeeShutdownPort>5678</tomeeShutdownPort>
@@ -482,22 +466,19 @@
 						<lib>org.jboss.logging:jboss-logging:3.1.0.GA</lib>
 						<lib>antlr:antlr:2.7.7</lib>
 						<lib>dom4j:dom4j:1.6.1</lib>
-						<!-- <lib>org.javassist:javassist:3.15.0-GA</lib> -->
 						<lib>org.hibernate.common:hibernate-commons-annotations:4.0.1.Final</lib>
-						<lib>org.hibernate:hibernate-validator:4.2.0.Final</lib>
+						<lib>org.hibernate:hibernate-validator:${hibernate.validator.version}</lib>
 						<lib>postgresql:postgresql:9.1-901.jdbc4</lib>
-						<!-- <lib>com.h2database:h2:1.3.168</lib> -->
-						<lib>org.infinispan:infinispan-core:5.1.5.FINAL</lib>
+						
+						<lib>org.infinispan:infinispan-core:5.2.0.Beta3</lib>
 						<lib>org.hibernate:hibernate-infinispan:${hibernate.core.version}</lib>
-						<lib>org.jgroups:jgroups:3.0.9.Final</lib>
-						<lib>org.jboss.marshalling:jboss-marshalling-river:1.3.11.GA:</lib>
-						<lib>org.jboss.marshalling:jboss-marshalling:1.3.11.GA</lib>
+						<lib>org.jgroups:jgroups:3.1.0.Final</lib>
+						<lib>org.jboss.marshalling:jboss-marshalling-river:1.3.15.GA:</lib>
+						<lib>org.jboss.marshalling:jboss-marshalling:1.3.15.GA</lib>
 						<lib>org.codehaus.woodstox:woodstox-core-asl:4.1.1</lib>
 						<lib>org.codehaus.woodstox:stax2-api:3.1.1</lib>
 						<lib>org.rhq.helpers:rhq-pluginAnnotations:3.0.4</lib>
 						<lib>org.jboss.logmanager:jboss-logmanager:1.2.2.GA</lib>
-						<!-- <lib>commons-fileupload:commons-fileupload:1.2.2</lib> -->
-						<!-- <lib>org.apache.commons:commons-email:1.2</lib> -->
 
 						<lib>remove:openjpa</lib>
 						<lib>remove:asm</lib>
@@ -507,6 +488,12 @@
 						<lib>remove:commons-dbcp</lib>
 						<lib>remove:commons-pool</lib>
 						<lib>remove:tomcat-i18n</lib>
+
+						<!-- <lib>commons-fileupload:commons-fileupload:1.2.2</lib> -->
+						<!-- <lib>org.apache.commons:commons-email:1.2</lib> -->
+						<!-- <lib>com.h2database:h2:1.3.168</lib> -->
+						<!-- <lib>org.javassist:javassist:3.15.0-GA</lib> -->
+
 					</libs>
 				</configuration>
 			</plugin>
