@@ -3,13 +3,12 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:s="http://jboss.org/seam/faces" template="/template.xhtml">
+ template="/template.xhtml">
 
 	<ui:define name="fullPage">
 		<h:form id="createEventForm">
 
-			<p:commandButton id="createEvent" value="Finalize Event" action="#{createEvent.createEvent}" ajax="false" />
+			<h:commandButton id="createEvent" value="Finalize Event" action="#{createEvent.createEvent}" ajax="false" />
 
 		</h:form>
 	</ui:define>

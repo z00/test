@@ -6,6 +6,9 @@ import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
+
+import org.apache.deltaspike.jpa.api.transaction.Transactional;
 
 @Named("createEvent")
 @ConversationScoped
@@ -15,6 +18,9 @@ public class CreateAction implements Serializable {
 
 	@Inject
 	private Conversation conversation;
+
+	@Inject
+	private EntityManager em;
 
 	public String startCreateEvent() {
 		if (conversation.isTransient()) {
@@ -27,9 +33,10 @@ public class CreateAction implements Serializable {
 	 * 
 	 * @return
 	 */
-	// @Transactional
+	@Transactional
 	public String createEvent() {
-
+		Property prop = new Property(DBEnum.TEST, "tomee rocks!");
+		em.persist(prop);
 		// do some stuff for event with DB, omitted
 		if (!conversation.isTransient()) {
 			conversation.end();

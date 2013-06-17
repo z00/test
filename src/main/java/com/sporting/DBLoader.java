@@ -13,13 +13,15 @@ import javax.ejb.TransactionAttribute;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.jboss.solder.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Singleton
 @Startup
 public class DBLoader implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private static final Logger LOGGER = Logger.getLogger(DBLoader.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(DBLoader.class);
+
 	@PersistenceContext(unitName = "testDS-PU")
 	private EntityManager entityManager;
 

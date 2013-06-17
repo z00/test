@@ -6,52 +6,47 @@
 		<description>Sportivity Persistence Unit</description>
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
  		<jta-data-source>My Datasource</jta-data-source>
-<!-- 		<jta-data-source>java:jboss/datasources/PostgresDS</jta-data-source> -->
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
 		<properties>
- 			<property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
-			 
+			<property name="hibernate.dialect" value="${hibernate.dialect}" />
+
 			<property name="hibernate.hbm2ddl.auto" value="create-drop" /> <!-- create-drop -->
-			<property name="hibernate.jdbc.batch_size" value="0" />
+			<property name="hibernate.jdbc.batch_size" value="${hibernate.jdbc.batch_size}" />
+			<property name="hibernate.jdbc.fetch_size" value="30" />
+			<property name="hibernate.default_batch_fetch_size" value="30"/>
+			
 			<property name="hibernate.show_sql" value="false" />
-			<property name="format_sql" value="true"/>			
-			<property name="hibernate.generate_statistics" value="true" />
-			
-			<property name="hibernate.cache.use_query_cache" value="false" />
-			<property name="hibernate.cache.use_second_level_cache" value="false"/>
-			<property name="hibernate.cache.infinispan.statistics" value="true"/>
-			
-<!-- 			<property name="hibernate.session_factory_name" value="conversationEMF"/>  -->
-			<property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.infinispan.InfinispanRegionFactory"/>
+			<property name="format_sql" value="true" />
+			<property name="hibernate.generate_statistics" value="${hibernate.generate_statistics}" />
+			<property name="jadira.usertype.autoRegisterUserTypes" value="true" />
 
-			<!--<property name="hibernate.cache.infinispan.cachemanager" value="java:jboss/infinispan/hibernate" /> -->
-			
-			<property name="hibernate.cache.infinispan.entity.eviction.strategy" value= "LRU"/>
-			<property name="hibernate.cache.infinispan.entity.eviction.wake_up_interval" value= "200000"/>
-			<property name="hibernate.cache.infinispan.entity.eviction.max_entries" value= "1000"/>
-			<property name="hibernate.cache.infinispan.entity.expiration.lifespan" value= "30000"/>
-			<property name="hibernate.cache.infinispan.entity.expiration.max_idle" value= "460000"/>
-												
-			<!-- <property name="hibernate.transaction.flush_before_completion" value="true"/> -->
-			
-			<!-- use a file system based index in prod jboss.entity.manager.factory.jndi.name-->
-<!--  		 	<property name="hibernate.search.default.directory_provider" value="filesystem" /> -->
-<!--  			<property name="hibernate.search.default.indexBase" value="sportivityindexes" />   -->
-    		<property name="hibernate.search.default.directory_provider" value="ram" /> 
+			<property name="hibernate.cache.use_query_cache" value="${hibernate.cache.use_query_cache}" />
+			<property name="hibernate.cache.use_second_level_cache" value="${hibernate.cache.use_second_level_cache}" />
+			<property name="hibernate.cache.infinispan.statistics" value="${hibernate.cache.infinispan.statistics}" />
+			<property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.infinispan.InfinispanRegionFactory" />
 
-			<property name="hibernate.search.jmx_enabled" value="false" />
-			<property name="hibernate.search.generate_statistics" value="false" />
-			<property name="hibernate.search.batchbackend.concurrent_writers" value="2" /> 
-<!-- 			<property name="hibernate.search.default.indexmanager" value="near-real-time" /> -->
-			<property name="hibernate.search.default.indexwriter.ram_buffer_size" value="16" /> <!-- in MB -->
+			<property name="hibernate.cache.infinispan.entity.eviction.strategy" value="LRU" />
+			<property name="hibernate.cache.infinispan.entity.eviction.wake_up_interval" value="9600" />
+			<property name="hibernate.cache.infinispan.entity.eviction.max_entries" value="10000" />
+
+			<property name="hibernate.cache.infinispan.com.sportivity.model.Action.eviction.strategy" value="NONE" />
+			<property name="hibernate.cache.infinispan.com.sportivity.model.Property.eviction.strategy" value="NONE" />
+			<property name="hibernate.cache.infinispan.com.sportivity.model.SportivityColor.eviction.strategy" value="NONE" />
+			<property name="hibernate.cache.infinispan.com.sportivity.model.Sport.eviction.strategy" value="NONE" />
+
+			<property name="hibernate.search.default.indexBase" value="sportivityindexes" />
+			<property name="hibernate.search.default.directory_provider" value="${hibernate.search.default.directory_provider}" />
+
+			<property name="hibernate.search.jmx_enabled" value="${hibernate.search.jmx_enabled}" />
+			<property name="hibernate.search.generate_statistics" value="${hibernate.search.generate_statistics}" />
 			
-			<property name="hibernate.search.lucene_version" value="LUCENE_34" />
+			<property name="hibernate.search.default.indexmanager" value="near-real-time" />
+			<property name="hibernate.search.default.indexwriter.ram_buffer_size" value="${hibernate.search.ram_buffer_size}" /> <!-- in MB -->
+
+			<property name="hibernate.search.lucene_version" value="LUCENE_36" />
 			<property name="hibernate.search.default.exclusive_index_use" value="true" />
-			<property name="hibernate.search.analyzer" value="org.apache.lucene.analysis.standard.StandardAnalyzer"/>
-			<property name="hibernate.search.worker.execution" value="async"/>
-			<property name="hibernate.search.worker.thread_pool.size" value="1"/>
-			<property name="hibernate.search.worker.buffer_queue.max" value="100"/>
+			<property name="hibernate.search.analyzer" value="org.apache.lucene.analysis.standard.StandardAnalyzer" />
 		</properties>
 	</persistence-unit>
 </persistence>

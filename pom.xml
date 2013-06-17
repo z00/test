@@ -9,20 +9,71 @@
 	<description>The new online sports company to take over the world!</description>
 	<contributors>
 		<contributor>
-			<name>Hamza Zineddin</name>
+			<name>Hamzah Zineddin</name>
 		</contributor>
 	</contributors>
-	<url>http:/sportivity.com</url>
-
+	<url>www.sportivity.com</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.build.timestamp.format>yyyyMMdd'T'HHmmss</maven.build.timestamp.format>
-		<hibernate.core.version>4.1.8.Final</hibernate.core.version>
+		<usertype.version>3.0.0.GA</usertype.version>
+		<jodatime.version>2.1</jodatime.version>
+		<hibernate.core.version>4.2.2.Final</hibernate.core.version> <!-- 4.1.8.Final -->
 		<hibernate.validator.version>4.3.1.Final</hibernate.validator.version>
 		<seam.version>3.1.0.Final</seam.version>
+		<deltaspike.version>0.4</deltaspike.version>
 		<freemarker.version>2.3.19</freemarker.version>
 		<surefire.plugin.version>2.12.4</surefire.plugin.version>
-		<tomee.version>1.5.2-SNAPSHOT</tomee.version>
+		<tomee.version>1.6.0-SNAPSHOT</tomee.version> <!-- 1.5.1 -->
+
+		<!-- DB params -->
+		<dev.populator.max>true</dev.populator.max>     
+		<release.mode.isProd>false</release.mode.isProd>
+		<db.clean>false</db.clean>
+
+		<!-- JSF params -->
+		<jsf.PROJECT_STAGE>Development</jsf.PROJECT_STAGE>
+		<jsf.REFRESH_PERIOD>1</jsf.REFRESH_PERIOD>
+		<jsf.PRETTY_HTML>true</jsf.PRETTY_HTML>
+		<jsf.VALIDATE>true</jsf.VALIDATE>
+		<jsf.FACELETS_DEVELOPMENT>true</jsf.FACELETS_DEVELOPMENT>
+		<jsf.CHECK_ID_PRODUCTION_MODE>true</jsf.CHECK_ID_PRODUCTION_MODE>
+
+		<!-- infrastructure params -->
+		<media.root.path>C:\\temp\\</media.root.path>  	<!-- dev include ending \\ -->
+		<media.s3.bucket>dev</media.s3.bucket>  <!-- dev, qa, or prod -->
+		<aws.secret></aws.secret>
+		<aws.key></aws.key>
+		<!-- Email Setup -->
+		<aws.smtp.server></aws.smtp.server>
+		<aws.smtp.port>587</aws.smtp.port>
+		<aws.smtp.TLS>false</aws.smtp.TLS>
+		<aws.smtp.user></aws.smtp.user> <!-- empty for filtering -->
+		<aws.smtp.psw></aws.smtp.psw>
+
+		<!-- jdbc settings, in resources.xml -->
+		<jdbc.type>Postgres</jdbc.type>
+		<jdbc.driver>org.postgresql.Driver</jdbc.driver>
+		<jdbc.url>jdbc:postgresql://127.0.0.1:5432/sportivity</jdbc.url>
+		<jdbc.user></jdbc.user>
+		<jdbc.removeAbandoned>false</jdbc.removeAbandoned>
+		<jdbc.password></jdbc.password>
+		<jdbc.jmxEnabled>false</jdbc.jmxEnabled>
+		<jdbc.interceptors></jdbc.interceptors> <!-- SlowQueryReportJmx(threshold=2000,maxQueries=1000,notifyPool=false); -->
+
+		<!-- Hibernate settings, in persistence.xml -->
+		<hibernate.dialect>org.hibernate.dialect.PostgreSQL82Dialect</hibernate.dialect>
+		<hibernate.hbm2ddl>none</hibernate.hbm2ddl> <!-- NEVER CHANGE -->
+		<hibernate.jdbc.batch_size>0</hibernate.jdbc.batch_size>
+		<hibernate.generate_statistics>false</hibernate.generate_statistics>
+		<hibernate.cache.use_query_cache>false</hibernate.cache.use_query_cache>
+		<hibernate.cache.use_second_level_cache>false</hibernate.cache.use_second_level_cache>
+		<hibernate.cache.infinispan.statistics>false</hibernate.cache.infinispan.statistics>
+		<hibernate.search.default.directory_provider>ram</hibernate.search.default.directory_provider>
+		<hibernate.search.jmx_enabled>false</hibernate.search.jmx_enabled>
+		<hibernate.search.generate_statistics>false</hibernate.search.generate_statistics>
+		<hibernate.search.ram_buffer_size>16</hibernate.search.ram_buffer_size>
+
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -43,21 +94,21 @@
 		</dependencies>
 	</dependencyManagement>
 	<dependencies>
-		<dependency>
-			<groupId>com.amazonaws</groupId>
-			<artifactId>aws-java-sdk</artifactId>
-			<version>1.3.25</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>commons-logging</artifactId>
-					<groupId>commons-logging</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>commons-codec</artifactId>
-					<groupId>commons-codec</groupId>
-				</exclusion> <!-- gives us jacson core and mapper -->
-			</exclusions>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.amazonaws</groupId> -->
+<!-- 			<artifactId>aws-java-sdk</artifactId> -->
+<!-- 			<version>1.3.25</version> -->
+<!-- 			<exclusions> -->
+<!-- 				<exclusion> -->
+<!-- 					<artifactId>commons-logging</artifactId> -->
+<!-- 					<groupId>commons-logging</groupId> -->
+<!-- 				</exclusion> -->
+<!-- 				<exclusion> -->
+<!-- 					<artifactId>commons-codec</artifactId> -->
+<!-- 					<groupId>commons-codec</groupId> -->
+<!-- 				</exclusion> gives us jacson core and mapper -->
+<!-- 			</exclusions> -->
+<!-- 		</dependency> -->
 		<dependency>
 			<groupId>org.apache.myfaces.core</groupId>
 			<artifactId>myfaces-api</artifactId>
@@ -123,7 +174,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-search</artifactId>
-			<version>4.2.0.Beta2</version>
+			<version>4.2.0.Final</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.hibernate</groupId>
@@ -164,12 +215,12 @@
 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
-			<version>2.1</version>
+			<version>${jodatime.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jadira.usertype</groupId>
 			<artifactId>usertype.core</artifactId>
-			<version>3.0.0.GA</version>
+			<version>${usertype.version}</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>slf4j-api</artifactId>
@@ -191,17 +242,6 @@
 			<version>1.2</version>
 			<scope>provided</scope>
 		</dependency>
-		<!-- <dependency> -->
-		<!-- <groupId>de.odysseus.juel</groupId> -->
-		<!-- <artifactId>juel-api</artifactId> -->
-		<!-- <version>2.2.5</version> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>de.odysseus.juel</groupId> -->
-		<!-- <artifactId>juel-impl</artifactId> -->
-		<!-- <version>2.2.5</version> -->
-		<!-- </dependency> -->
-		<!-- Seam stuff -->
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
@@ -214,37 +254,18 @@
 			<version>1.2</version>
 		</dependency>
 		<dependency>
-			<groupId>org.jboss.seam.security</groupId>
-			<artifactId>seam-security</artifactId>
+			<groupId>org.apache.deltaspike.modules</groupId>
+			<artifactId>deltaspike-jpa-module-api</artifactId>
+			<version>${deltaspike.version}</version>
 			<scope>compile</scope>
-			<version>${seam.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.jboss.solder</groupId>
-			<artifactId>solder-impl</artifactId>
-			<version>${seam.version}</version>
+			<groupId>org.apache.deltaspike.modules</groupId>
+			<artifactId>deltaspike-jpa-module-impl</artifactId>
+			<version>${deltaspike.version}</version>
+			<scope>runtime</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.jboss.seam.persistence</groupId>
-			<artifactId>seam-persistence</artifactId>
-			<version>${seam.version}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>jboss-servlet-api_3.0_spec</artifactId>
-					<groupId>org.jboss.spec.javax.servlet</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.seam.international</groupId>
-			<artifactId>seam-international</artifactId>
-			<version>${seam.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.seam.faces</groupId>
-			<artifactId>seam-faces</artifactId>
-			<version>${seam.version}</version>
-		</dependency>
+		
 		<dependency>
 			<groupId>org.scribe</groupId>
 			<artifactId>scribe</artifactId>
@@ -259,19 +280,14 @@
 		<dependency>
 			<groupId>com.ocpsoft</groupId>
 			<artifactId>prettyfaces-jsf2</artifactId>
-			<scope>runtime</scope>
+			
 			<version>3.3.3</version>
 		</dependency>
-		<dependency>
-			<groupId>org.primefaces</groupId>
-			<artifactId>primefaces</artifactId>
-			<version>3.4.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.primefaces.themes</groupId>
-			<artifactId>ui-lightness</artifactId>
-			<version>1.0.2</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.primefaces</groupId> -->
+<!-- 			<artifactId>primefaces</artifactId> -->
+<!-- 			<version>3.4.2</version> -->
+<!-- 		</dependency> -->
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
@@ -305,13 +321,6 @@
 			<version>${freemarker.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.jboss.logmanager</groupId>
-			<artifactId>jboss-logmanager</artifactId>
-			<version>1.2.2.GA</version>
-			<scope>provided</scope> <!-- provided --> <!-- replace with logback -->
-		</dependency>
-		<!-- Test dependencies -->
-		<dependency>
 			<groupId>org.subethamail</groupId>
 			<artifactId>subethasmtp</artifactId>
 			<version>3.1.3</version>
@@ -338,8 +347,6 @@
 			<artifactId>arquillian-junit-container</artifactId>
 			<scope>test</scope>
 		</dependency>
-
-
 		<dependency>
 			<groupId>org.jboss.arquillian.core</groupId>
 			<artifactId>arquillian-core-impl-base</artifactId>
@@ -355,7 +362,6 @@
 			<artifactId>shrinkwrap-descriptors-api-base</artifactId>
 			<scope>test</scope>
 		</dependency>
-
 
 		<!-- <dependency> -->
 		<!-- <groupId>org.jboss.shrinkwrap.resolver</groupId> -->
@@ -405,12 +411,12 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- <dependency> -->
-		<!-- <groupId>postgresql</groupId> -->
-		<!-- <artifactId>postgresql</artifactId> -->
-		<!-- <version>9.2-1002.jdbc4</version> -->
-		<!-- <scope>runtime</scope> -->
-		<!-- </dependency> -->
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.1-901.jdbc4</version> <!-- prod 9.2-1002.jdbc4 not on mvn repo -->
+			<scope>test</scope>
+		</dependency>
 
 		<!-- PDF Excel Library -->
 		<dependency>
@@ -423,6 +429,12 @@
 			<artifactId>itext</artifactId>
 			<version>2.1.7</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.googlecode.flyway</groupId>
+			<artifactId>flyway-core</artifactId>
+			<version>2.1.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -434,13 +446,14 @@
 					<exclude>**/META-INF/*.xml</exclude>
 					<exclude>import.sql</exclude>
 					<exclude>cities15000-full.txt</exclude>
+					<exclude>db/migration/V2__import-inserts.sql</exclude>
 				</excludes>
 				<filtering>false</filtering>
 			</resource>
 			<resource>
 				<directory>src/main/resources</directory>
 				<includes>
-					<include>import.sql</include>
+					<include>db/migration/V2__import-inserts.sql</include>
 				</includes>
 				<filtering>true</filtering>
 			</resource>
@@ -466,6 +479,16 @@
 						<nonFilteredFileExtension>ftl</nonFilteredFileExtension>
 					</nonFilteredFileExtensions>
 					<!-- <webappDirectory>${war.deploy.path}</webappDirectory> -->
+					<webResources>
+						<resource>
+							<directory>${basedir}/src/main/webapp/WEB-INF</directory>
+							<filtering>true</filtering>
+							<targetPath>WEB-INF</targetPath>
+							<includes>
+								<include>**/resources.xml</include>
+							</includes>
+						</resource>
+					</webResources>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -508,10 +531,11 @@
 					<!-- </filesets> -->
 				</configuration>
 			</plugin>
+
 			<plugin>
 				<groupId>org.apache.openejb.maven</groupId>
 				<artifactId>tomee-maven-plugin</artifactId>
-				<version>1.0.1</version> <!-- 1.0.0-SNAPSHOT for snapshot -->
+				<version>1.6.0-SNAPSHOT</version> <!-- 1.0.1 -->
 				<configuration>
 					<tomeeVersion>${tomee.version}</tomeeVersion> <!-- 1.0.0 -->
 					<removeDefaultWebapps>true</removeDefaultWebapps>
@@ -540,6 +564,7 @@
 						<lib>org.codehaus.woodstox:stax2-api:3.1.1</lib>
 						<lib>org.rhq.helpers:rhq-pluginAnnotations:3.0.4</lib>
 						<lib>org.jboss.logmanager:jboss-logmanager:1.2.2.GA</lib>
+						<lib>org.jboss:staxmapper:1.1.0.Final</lib>
 
 						<lib>remove:openjpa</lib>
 						<lib>remove:asm</lib>
@@ -587,7 +612,6 @@
 		</plugins>
 	</build>
 
-
 	<profiles>
 		<profile>
 			<id>default</id>
@@ -596,14 +620,6 @@
 			</activation>
 			<build>
 				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-war-plugin</artifactId>
-						<version>2.1.1</version>
-						<configuration>
-							<!-- <webappDirectory>${war.deploy.path}</webappDirectory> -->
-						</configuration>
-					</plugin>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-surefire-plugin</artifactId>
@@ -639,20 +655,6 @@
 					</plugin>
 				</plugins>
 			</build>
-			<!-- <dependencies> -->
-			<!-- <dependency> -->
-			<!-- <groupId>org.apache.openejb</groupId> -->
-			<!-- <artifactId>tomee-embedded</artifactId> -->
-			<!-- <version>${tomee.version}</version> -->
-			<!-- <scope>test</scope> -->
-			<!-- </dependency> -->
-			<!-- <dependency> -->
-			<!-- <groupId>org.apache.openejb</groupId> -->
-			<!-- <artifactId>arquillian-tomee-embedded</artifactId> -->
-			<!-- <version>${tomee.version}</version> -->
-			<!-- <scope>test</scope> -->
-			<!-- </dependency> -->
-			<!-- </dependencies> -->
 		</profile>
 		<profile>
 			<id>tomee</id>
@@ -687,55 +689,7 @@
 				</dependency>
 			</dependencies>
 		</profile>
-		<profile>
-			<id>as7ui</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-war-plugin</artifactId>
-						<version>2.1.1</version>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<version>2.10</version>
-						<configuration>
-							<skip>true</skip>
-						</configuration>
-					</plugin>
-					<plugin>
-						<artifactId>maven-failsafe-plugin</artifactId>
-						<version>2.10</version>
-						<configuration>
-							<groups>uitest</groups>
-							<systemPropertyVariables>
-								<JBOSS_HOME>${env.JBOSS_HOME}</JBOSS_HOME>
-							</systemPropertyVariables>
-						</configuration>
-						<executions>
-							<execution>
-								<goals>
-									<goal>integration-test</goal>
-									<goal>verify</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-			<dependencies>
-				<dependency>
-					<groupId>org.jboss.as</groupId>
-					<artifactId>jboss-as-arquillian-container-managed</artifactId>
-					<version>${jboss.version}</version>
-					<scope>test</scope>
-				</dependency>
-			</dependencies>
-		</profile>
+
 	</profiles>
 
 	<repositories>

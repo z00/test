@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	version="3.0"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.0" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
 	<display-name>test</display-name>
 
 	<session-config>
 		<session-timeout>10</session-timeout>
 	</session-config>
+
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>none</param-value>
+	</context-param>
 
 	<context-param>
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
@@ -22,13 +25,13 @@
 		<param-value>300000</param-value>
 	</context-param>
 	<context-param>
-        <param-name>org.apache.myfaces.COMPRESS_STATE_IN_CLIENT</param-name>
-        <param-value>false</param-value>
-    </context-param>
-<!-- 	<context-param> -->
-<!-- 		<param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name> -->
-<!-- 		<param-value>-1</param-value> only prod -1 -->
-<!-- 	</context-param> -->
+		<param-name>org.apache.myfaces.COMPRESS_STATE_IN_CLIENT</param-name>
+		<param-value>false</param-value>
+	</context-param>
+	<!-- <context-param> -->
+	<!-- <param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name> -->
+	<!-- <param-value>-1</param-value> only prod -1 -->
+	<!-- </context-param> -->
 
 	<context-param>
 		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>

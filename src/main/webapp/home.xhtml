@@ -4,16 +4,16 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core" 
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:p="http://primefaces.org/ui"
 	template="/template.xhtml">
 	
 	
 	<ui:define name="center">
 		<h:form id="createStuffForm">
 				<c:if test="#{true}">
-          			<p:commandLink  id="createEventLink"  	action="#{createEvent.startCreateEvent}" value="Start Event" title="Event"/>
+          			<h:commandLink  id="createEventLink"  	action="#{createEvent.startCreateEvent}" value="Start Event" title="Event"/>
 	  			</c:if>
 	  		</h:form>	
+	  		<h:outputLabel value="#{myHomeAction.memberId}" />
 	</ui:define>
 	
 </ui:composition>
